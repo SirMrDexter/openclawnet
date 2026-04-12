@@ -911,7 +911,7 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 <tbody><tr>
 <td><strong>→ 1</strong></td>
 <td><strong>Foundation + Local Chat</strong></td>
-<td><strong>Architecture, Ollama, SignalR streaming</strong></td>
+<td><strong>Architecture, Local LLMs, SignalR streaming</strong></td>
 </tr>
 <tr>
 <td>2</td>
@@ -937,11 +937,11 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 <h2>What We&#39;re Building Today</h2>
 <p>A complete AI chatbot stack:</p>
 <ul>
-<li>🧱 <strong>18-project architecture</strong> with clean separation <!-- .element: class="fragment" --></li>
-<li>🦙 <strong>Local AI</strong> with Ollama — no cloud, no API keys <!-- .element: class="fragment" --></li>
+<li>🧱 <strong>Modular architecture</strong> with clean separation <!-- .element: class="fragment" --></li>
+<li>🤖 <strong>Local LLMs</strong> — no cloud, no API keys, no cost <!-- .element: class="fragment" --></li>
 <li>⚡ <strong>Real-time streaming</strong> via SignalR WebSocket <!-- .element: class="fragment" --></li>
 <li>💾 <strong>Persistent conversations</strong> with EF Core + SQLite <!-- .element: class="fragment" --></li>
-<li>🚀 <strong>One-command startup</strong> with .NET Aspire <!-- .element: class="fragment" --></li>
+<li>🚀 <strong>One-command startup</strong> with <a href="https://aspire.dev">Aspire</a> <!-- .element: class="fragment" --></li>
 </ul>
 
 <aside class="notes"><p>Everything runs locally on your machine. No cloud accounts needed today.</p>
@@ -950,12 +950,15 @@ Monokai style - ported by Luigi Maselli - http://grigio.org
 <section class="content-slide">
 <h2>Prerequisites Check</h2>
 <pre><code class="language-bash">dotnet --version          # 10.0.x ✓
-ollama list               # llama3.2 ✓
 code --version            # VS Code ✓
+</code></pre>
+<p><strong>Local LLM</strong> — pick one:</p>
+<pre><code class="language-bash">ollama list               # Ollama: llama3.2 ✓
+foundry model list        # Foundry Local: phi ✓
 </code></pre>
 <p>GitHub Copilot extension installed and active ✓</p>
 
-<aside class="notes"><p>Quick check — everyone has these? If not, you can follow along and set up later using the README.</p>
+<aside class="notes"><p>Quick check — everyone has these? You need .NET 10 and a local LLM. Ollama or Foundry Local both work. If not set up yet, follow along and use the README later.</p>
 </aside>
 </section>
 <section class="section-divider">
@@ -963,21 +966,67 @@ code --version            # VS Code ✓
 <h2>Architecture &amp; Core Abstractions</h2>
 <p>⏱️ 15 minutes</p>
 
-<aside class="notes"><p>Let&#39;s start with the big picture — how 18 projects fit together and why the model interface is the most important design decision.</p>
+<aside class="notes"><p>Let&#39;s start with the big picture — how agent platforms are designed, and how we bring that into the .NET world.</p>
 </aside>
 </section>
-<section class="architecture-slide">
-<h2>Architecture Overview</h2>
-<p><img src="../shared/diagrams/architecture-overview.svg" alt="Architecture Overview"></p>
+<section class="content-slide">
+<h2>The OpenClaw Architecture</h2>
+<p>An open agent platform has <strong>5 key layers</strong>:</p>
+<pre><code>┌─────────────────────────────────────┐
+│           UI + API Layer            │  ← Chat, REST, WebSocket
+├─────────────────────────────────────┤
+│         Agent Orchestrator          │  ← Reasoning loop
+├──────────┬──────────┬───────────────┤
+│  Tools   │  Skills  │    Memory     │  ← Capabilities
+├──────────┴──────────┴───────────────┤
+│       Model Abstraction Layer       │  ← LLM providers
+├─────────────────────────────────────┤
+│       Storage + Infrastructure      │  ← Persistence, config
+└─────────────────────────────────────┘
+</code></pre>
 
-<aside class="notes"><p>This is the full system. Today we&#39;re covering the bottom three layers: Models, Storage, and Gateway. The agent, tools, skills, and memory come in Sessions 2–3.</p>
+<aside class="notes"><p>This is the reference architecture. OpenClaw defines it. NVIDIA&#39;s NemoClaw adds security sandbox and policy enforcement on top. Our OpenClawNet implements it in .NET with Aspire for orchestration.</p>
 </aside>
 </section>
-<section class="architecture-slide">
-<h2>Solution Structure: 18 Projects</h2>
-<p><img src="../shared/diagrams/solution-structure.svg" alt="Solution Structure"></p>
+<section class="content-slide">
+<h2>From OpenClaw to .NET</h2>
+<table>
+<thead>
+<tr>
+<th>OpenClaw Concept</th>
+<th>OpenClawNet (.NET)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Model Provider</td>
+<td><code>IModelClient</code> interface</td>
+</tr>
+<tr>
+<td>Agent Runtime</td>
+<td><code>IAgentOrchestrator</code> + <code>DefaultAgentRuntime</code></td>
+</tr>
+<tr>
+<td>Tool Registry</td>
+<td><code>IToolRegistry</code> + <code>IToolExecutor</code></td>
+</tr>
+<tr>
+<td>Skill System</td>
+<td>YAML/Markdown skill files + <code>ISkillLoader</code></td>
+</tr>
+<tr>
+<td>Memory</td>
+<td><code>ISummaryService</code> + <code>ElBruno.LocalEmbeddings</code></td>
+</tr>
+<tr>
+<td>Orchestration</td>
+<td><strong><a href="https://aspire.dev">Aspire</a></strong> — service discovery, health, telemetry</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>NVIDIA NemoClaw adds sandboxing + policy enforcement. We focus on the <strong>.NET developer experience</strong>.</p>
+</blockquote>
 
-<aside class="notes"><p>Each project has a single responsibility. Models.Abstractions defines the interface. Models.Ollama implements it. Storage handles persistence. Gateway wires everything together.</p>
+<aside class="notes"><p>Every concept in the OpenClaw reference maps to a .NET interface or project. Aspire replaces Docker Compose and gives us service discovery, health checks, and telemetry for free. Let&#39;s look at the most important interface first.</p>
 </aside>
 </section>
 <section class="code-slide">
@@ -1000,7 +1049,7 @@ code --version            # VS Code ✓
 </code></pre>
 <p><small>📁 <code>src/OpenClawNet.Models.Abstractions/IModelClient.cs</code></small></p>
 
-<aside class="notes"><p>This is the most important interface in the entire platform. Three methods: complete (batch), stream (real-time), and health check. Every provider implements this.</p>
+<aside class="notes"><p>This is the most important interface in the entire platform. Three methods: complete (batch), stream (real-time), and health check. Every provider — Ollama, Foundry Local, Azure OpenAI — implements this exact interface.</p>
 </aside>
 </section>
 <section class="code-slide">
@@ -1029,19 +1078,18 @@ public sealed record ChatResponse
 </section>
 <section class="content-slide">
 <h2>Dependency Injection Wiring</h2>
-<pre><code class="language-csharp">// Gateway/Program.cs
+<pre><code class="language-csharp">// Gateway/Program.cs — pick your local LLM provider
 builder.Services.AddModelClient&lt;OllamaModelClient&gt;();
-builder.Services.Configure&lt;ModelOptions&gt;(
-    builder.Configuration.GetSection(&quot;Model&quot;));
+// OR: builder.Services.AddModelClient&lt;FoundryLocalModelClient&gt;();
 </code></pre>
 <br>
 
 <p><strong>One line</strong> swaps the entire model provider:</p>
-<pre><code class="language-csharp">// Switch to Azure OpenAI — nothing else changes
+<pre><code class="language-csharp">// Switch to cloud — nothing else changes
 builder.Services.AddModelClient&lt;AzureOpenAIModelClient&gt;();
 </code></pre>
 
-<aside class="notes"><p>This is the payoff of the interface design. The Gateway doesn&#39;t know or care which model provider it&#39;s using. DI handles the wiring.</p>
+<aside class="notes"><p>This is the payoff of the interface design. The Gateway doesn&#39;t know or care which model provider it&#39;s using. DI handles the wiring. Swap Ollama for Foundry Local, or go to cloud — zero code changes in the rest of the app.</p>
 </aside>
 </section>
 <section class="demo-transition">
@@ -1054,66 +1102,140 @@ builder.Services.AddModelClient&lt;AzureOpenAIModelClient&gt;();
 </section>
 <section class="section-divider">
 <h1>Stage 2</h1>
-<h2>Ollama Provider + Data Layer</h2>
+<h2>Local LLMs + Data Layer</h2>
 <p>⏱️ 15 minutes</p>
 
-<aside class="notes"><p>Now we go one level deeper. How does Ollama actually work? And how do we store conversations?</p>
+<aside class="notes"><p>Now we go one level deeper. Why local models? What options do we have? And how do we store conversations?</p>
 </aside>
 </section>
 <section class="content-slide">
-<h2>What is Ollama?</h2>
+<h2>Why Local LLMs?</h2>
 <ul>
-<li><strong>Local LLM runtime</strong> — models run on your machine <!-- .element: class="fragment" --></li>
-<li><strong>REST API</strong> at <code>http://localhost:11434</code> <!-- .element: class="fragment" --></li>
-<li><strong>No cloud, no API keys, no cost</strong> <!-- .element: class="fragment" --></li>
-<li><strong>One command:</strong> <code>ollama pull llama3.2</code> <!-- .element: class="fragment" --></li>
+<li>🔒 <strong>Privacy</strong> — your data never leaves your machine <!-- .element: class="fragment" --></li>
+<li>💰 <strong>Zero cost</strong> — no API keys, no per-token charges <!-- .element: class="fragment" --></li>
+<li>⚡ <strong>Zero latency</strong> — no network round-trip <!-- .element: class="fragment" --></li>
+<li>🌐 <strong>Works offline</strong> — no internet required <!-- .element: class="fragment" --></li>
 </ul>
 <br>
 
-<pre><code class="language-bash"># Verify it&#39;s running
-curl http://localhost:11434/api/tags
-</code></pre>
+<blockquote>
+<p>Start local, scale to cloud when ready. Same <code>IModelClient</code> interface.</p>
+</blockquote>
 <!-- .element: class="fragment" -->
-<aside class="notes"><p>Ollama is the default provider because it removes all barriers. Your data never leaves your machine.</p>
+<aside class="notes"><p>Local models are perfect for development and privacy-sensitive scenarios. Build and test with local LLMs, deploy to Azure when you need scale. The abstraction layer means zero code changes.</p>
+</aside>
+</section>
+<section class="two-column">
+<h2>Local LLM Options</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Ollama</th>
+<th>Foundry Local</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Install</strong></td>
+<td>CLI app + pull models</td>
+<td>NuGet package (zero setup)</td>
+</tr>
+<tr>
+<td><strong>API</strong></td>
+<td>REST (OpenAI-compatible)</td>
+<td>In-process SDK</td>
+</tr>
+<tr>
+<td><strong>Models</strong></td>
+<td>Llama, Phi, Mistral, ...</td>
+<td>Phi, Qwen, DeepSeek, ...</td>
+</tr>
+<tr>
+<td><strong>HW accel</strong></td>
+<td>Manual GPU config</td>
+<td>Auto GPU/NPU/CPU</td>
+</tr>
+<tr>
+<td><strong>Platform</strong></td>
+<td>Windows, macOS, Linux</td>
+<td>Windows, macOS, Linux</td>
+</tr>
+</tbody></table>
+<p>Both implement <code>IModelClient</code> → <strong>swap with one line</strong> <!-- .element: class="fragment" --></p>
+
+<aside class="notes"><p>Two great options. Ollama is a standalone CLI you already know. Foundry Local is Microsoft&#39;s new GA solution — it ships as a NuGet package, auto-detects your hardware, and needs zero user setup. Both work behind IModelClient.</p>
 </aside>
 </section>
 <section class="architecture-slide">
 <h2>Streaming Flow</h2>
-<p><img src="../shared/diagrams/streaming-flow.svg" alt="Streaming Flow"></p>
+<pre><code>┌──────────────────┐
+│  Local LLM       │  Ollama REST / Foundry Local SDK
+│  (generates)     │
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│  IModelClient    │  StreamAsync → IAsyncEnumerable
+│  (abstracts)     │
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│  SignalR Hub     │  yield return → push to client
+│  (streams)       │
+└────────┬─────────┘
+         ▼
+┌──────────────────┐
+│  Blazor UI       │  Token by token rendering
+│  (renders)       │
+└──────────────────┘
+</code></pre>
 
-<aside class="notes"><p>This diagram shows the complete token flow — from Ollama generating text, through NDJSON parsing, IAsyncEnumerable, SignalR, and finally into the browser. Each layer yields tokens as they arrive.</p>
+<aside class="notes"><p>This diagram shows the complete token flow. The local LLM generates text, IModelClient abstracts the provider, SignalR pushes each token to the browser instantly. Every layer uses IAsyncEnumerable — no buffering anywhere.</p>
 </aside>
 </section>
 <section class="code-slide">
-<h2><code>OllamaModelClient.StreamAsync</code></h2>
+<h2>Provider Implementation Pattern</h2>
 <pre><code class="language-csharp">public async IAsyncEnumerable&lt;ChatResponseChunk&gt; StreamAsync(
     ChatRequest request,
     [EnumeratorCancellation] CancellationToken ct = default)
 {
-    // POST /api/chat with stream=true
+    // Each provider handles streaming differently:
+    // Ollama: POST /api/chat → NDJSON stream
+    // Foundry Local: SDK ChatClient → streaming response
+
     var httpRequest = BuildRequest(request, stream: true);
     var response = await _httpClient.SendAsync(
         httpRequest, HttpCompletionOption.ResponseHeadersRead, ct);
 
-    // Read NDJSON stream line-by-line
     await using var stream = await response.Content.ReadAsStreamAsync(ct);
     using var reader = new StreamReader(stream);
 
     while (await reader.ReadLineAsync(ct) is { } line)
     {
-        var chunk = JsonSerializer.Deserialize&lt;OllamaResponse&gt;(line);
+        var chunk = JsonSerializer.Deserialize&lt;ProviderResponse&gt;(line);
         yield return new ChatResponseChunk { Content = chunk.Message.Content };
     }
 }
 </code></pre>
-<p><small>📁 <code>src/OpenClawNet.Models.Ollama/OllamaModelClient.cs</code></small></p>
 
-<aside class="notes"><p>Key pattern: yield return creates a pipeline. Each token flows to the caller immediately. No buffering. The EnumeratorCancellation attribute enables cooperative cancellation.</p>
+<aside class="notes"><p>Key pattern: yield return creates a pipeline. Each token flows to the caller immediately. No buffering. The provider-specific details are hidden behind IModelClient — callers don&#39;t care if it&#39;s Ollama, Foundry Local, or Azure.</p>
 </aside>
 </section>
 <section class="architecture-slide">
 <h2>Entity Relationship Diagram</h2>
-<p><img src="../shared/diagrams/entity-relationship.svg" alt="Entity Relationships"></p>
+<pre><code>┌──────────────┐    1:N    ┌───────────────────┐
+│  ChatSession │──────────▶│  ChatMessageEntity │
+│              │           │  Role, Content     │
+│  Title       │           │  ToolCallsJson     │
+│  Provider    │           │  OrderIndex        │
+│  Model       │           └───────────────────┘
+│  CreatedAt   │
+└──────┬───────┘    1:N    ┌───────────────────┐
+       │──────────────────▶│  SessionSummary    │
+       │                   └───────────────────┘
+       │               1:N ┌───────────────────┐
+       └──────────────────▶│  ToolCallRecord    │
+                           └───────────────────┘
+</code></pre>
 
 <aside class="notes"><p>Seven entities. ChatSession is the root. Each session has messages, summaries, and tool call records. ScheduledJob and JobRun handle automation. ProviderSetting stores per-provider config.</p>
 </aside>
@@ -1222,7 +1344,7 @@ public sealed class ChatMessageEntity
 builder.AddServiceDefaults();                    // Aspire telemetry
 builder.Services.AddSignalR();                   // Real-time hub
 builder.Services.AddOpenClawStorage();           // EF Core + SQLite
-builder.Services.AddModelClient&lt;OllamaModelClient&gt;(); // LLM provider
+builder.Services.AddModelClient&lt;OllamaModelClient&gt;(); // Local LLM
 builder.Services.AddAgentRuntime();              // Orchestrator
 builder.Services.AddHostedService&lt;JobSchedulerService&gt;();
 </code></pre>
@@ -1230,7 +1352,7 @@ builder.Services.AddHostedService&lt;JobSchedulerService&gt;();
 
 <p><strong>Every service registered in one place, one file.</strong></p>
 
-<aside class="notes"><p>This is the composition root. Every dependency is explicit and visible. No hidden magic, no convention-based discovery.</p>
+<aside class="notes"><p>This is the composition root. Every dependency is explicit and visible. No hidden magic, no convention-based discovery. Swap the model client line to use Foundry Local or Azure — nothing else changes.</p>
 </aside>
 </section>
 <section class="two-column">
@@ -1295,22 +1417,22 @@ Server: [done]   → Client
 </section>
 <section class="code-slide">
 <h2>Aspire Orchestration</h2>
-<pre><code class="language-csharp">// AppHost.cs — 18 lines, entire topology
+<pre><code class="language-csharp">// AppHost.cs — entire topology
 var gateway = builder.AddProject&lt;Projects.OpenClawNet_Gateway&gt;(&quot;gateway&quot;)
     .WithExternalHttpEndpoints()
     .WithHttpHealthCheck(&quot;/health&quot;)
     .WithEnvironment(&quot;ConnectionStrings__DefaultConnection&quot;, connStr)
-    .WithEnvironment(&quot;Model__Endpoint&quot;, ollamaEndpoint);
+    .WithEnvironment(&quot;Model__Endpoint&quot;, modelEndpoint);
 
 builder.AddProject&lt;Projects.OpenClawNet_Web&gt;(&quot;web&quot;)
     .WithExternalHttpEndpoints()
     .WithReference(gateway)     // ← Service discovery
     .WaitFor(gateway)           // ← Startup ordering
-    .WithEnvironment(&quot;OpenClawNet__OllamaBaseUrl&quot;, ollamaEndpoint);
+    .WithEnvironment(&quot;OpenClawNet__GatewayUrl&quot;, gatewayUrl);
 </code></pre>
-<p><small>This replaces Docker Compose + startup scripts</small></p>
+<p><small>This replaces Docker Compose + startup scripts · <a href="https://aspire.dev">aspire.dev</a></small></p>
 
-<aside class="notes"><p>WithReference gives Web a service reference to Gateway. WaitFor ensures Gateway is healthy before Web starts. One command runs everything.</p>
+<aside class="notes"><p>WithReference gives Web a service reference to Gateway. WaitFor ensures Gateway is healthy before Web starts. One command runs everything. Learn more at aspire.dev.</p>
 </aside>
 </section>
 <section class="demo-transition">
@@ -1331,10 +1453,10 @@ builder.AddProject&lt;Projects.OpenClawNet_Web&gt;(&quot;web&quot;)
 <section class="content-slide">
 <h2>What We Built ✓</h2>
 <ul>
-<li>✅ <strong>18-project architecture</strong> with interface-driven design <!-- .element: class="fragment" --></li>
+<li>✅ <strong>Modular architecture</strong> mapped from OpenClaw reference <!-- .element: class="fragment" --></li>
 <li>✅ <strong><code>IModelClient</code></strong> — pluggable model providers <!-- .element: class="fragment" --></li>
-<li>✅ <strong>Ollama streaming</strong> — NDJSON → <code>IAsyncEnumerable</code> → real-time tokens <!-- .element: class="fragment" --></li>
-<li>✅ <strong>EF Core storage</strong> — 7 entities, repository pattern <!-- .element: class="fragment" --></li>
+<li>✅ <strong>Local LLM streaming</strong> — <code>IAsyncEnumerable</code> → real-time tokens <!-- .element: class="fragment" --></li>
+<li>✅ <strong>EF Core storage</strong> — entities, repository pattern <!-- .element: class="fragment" --></li>
 <li>✅ <strong>SignalR ChatHub</strong> — push tokens to the browser instantly <!-- .element: class="fragment" --></li>
 <li>✅ <strong>Aspire orchestration</strong> — one command, full stack <!-- .element: class="fragment" --></li>
 </ul>
@@ -1371,8 +1493,12 @@ builder.AddProject&lt;Projects.OpenClawNet_Web&gt;(&quot;web&quot;)
 <td><a href="https://github.com/elbruno/openclawnet">github.com/elbruno/openclawnet</a></td>
 </tr>
 <tr>
-<td>📖 .NET Aspire</td>
-<td><a href="https://learn.microsoft.com/dotnet/aspire">learn.microsoft.com/dotnet/aspire</a></td>
+<td>🚀 Aspire</td>
+<td><a href="https://aspire.dev">aspire.dev</a></td>
+</tr>
+<tr>
+<td>🤖 Foundry Local</td>
+<td><a href="https://learn.microsoft.com/azure/foundry-local">learn.microsoft.com/azure/foundry-local</a></td>
 </tr>
 <tr>
 <td>🦙 Ollama</td>

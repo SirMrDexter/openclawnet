@@ -1,6 +1,0 @@
-@OpenClawNet.Gateway_HostAddress = http://localhost:5010
-
-GET {{OpenClawNet.Gateway_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
