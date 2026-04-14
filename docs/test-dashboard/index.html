@@ -172,15 +172,15 @@ body{
       <div class="hero-subtitle">End-to-End Test Dashboard &mdash; Playwright + Aspire</div>
     </div>
     <div class="hero-badge">
-      <span class="big"><!-- TOTAL_PASSED -->39<!-- /TOTAL_PASSED --> / <!-- TOTAL_TESTS -->39<!-- /TOTAL_TESTS --></span>
+      <span class="big"><!-- TOTAL_PASSED -->52<!-- /TOTAL_PASSED --> / <!-- TOTAL_TESTS -->52<!-- /TOTAL_TESTS --></span>
       All Tests Passing
     </div>
   </div>
 </header>
 <section class="container">
   <div class="summary-bar">
-    <div class="stat-card stat-total"><div class="stat-value"><!-- TOTAL_TESTS -->39<!-- /TOTAL_TESTS --></div><div class="stat-label">Total Tests</div></div>
-    <div class="stat-card stat-passed"><div class="stat-value"><!-- TOTAL_PASSED -->39<!-- /TOTAL_PASSED --></div><div class="stat-label">Passed</div></div>
+    <div class="stat-card stat-total"><div class="stat-value"><!-- TOTAL_TESTS -->52<!-- /TOTAL_TESTS --></div><div class="stat-label">Total Tests</div></div>
+    <div class="stat-card stat-passed"><div class="stat-value"><!-- TOTAL_PASSED -->52<!-- /TOTAL_PASSED --></div><div class="stat-label">Passed</div></div>
     <div class="stat-card stat-failed"><div class="stat-value"><!-- TOTAL_FAILED -->0<!-- /TOTAL_FAILED --></div><div class="stat-label">Failed</div></div>
     <div class="stat-card stat-duration"><div class="stat-value"><!-- TOTAL_DURATION -->3m 49s<!-- /TOTAL_DURATION --></div><div class="stat-label">Duration</div></div>
   </div>
@@ -189,13 +189,14 @@ body{
     <div class="demo-header">
       <span class="demo-number">Demo 01</span>
       <span class="demo-title">Launch &amp; Dashboard</span>
-      <span class="demo-count">4 tests</span>
+      <span class="demo-count">5 tests</span>
       <span class="demo-desc">Validates the Aspire AppHost launches correctly and core health/version endpoints respond.</span>
     </div>
     <div class="test-list">
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Dashboard_GatewayHealth_IsAccessibleFromWeb</div><div class="test-desc">Verifies Gateway health endpoint is reachable through Aspire service discovery</div></div><span class="test-duration">8ms</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Dashboard_WebAppHomePage_IsReachable</div><div class="test-desc">Confirms the Blazor Web UI loads from the Aspire dashboard URL</div></div><span class="test-duration">630ms</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Health_GetEndpoint_ReturnsHealthy</div><div class="test-desc">GET /health returns &quot;healthy&quot; status</div></div><span class="test-duration">14ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">OpenApi_GetSpec_ReturnsValidJson</div><div class="test-desc">GET /openapi/v1.json returns valid OpenAPI specification</div></div><span class="test-duration">123ms</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Version_GetEndpoint_ReturnsVersionInfo</div><div class="test-desc">GET /api/version returns version and name</div></div><span class="test-duration">8ms</span></div>
     </div>
   </div>
@@ -205,11 +206,13 @@ body{
     <div class="demo-header">
       <span class="demo-number">Demo 02</span>
       <span class="demo-title">First Chat</span>
-      <span class="demo-count">6 tests</span>
+      <span class="demo-count">8 tests</span>
       <span class="demo-desc">Validates session creation, chat messaging with Ollama, streaming UI, and session persistence.</span>
     </div>
     <div class="test-list">
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Sessions_CreateSession_ReturnsCreated</div><div class="test-desc">POST /api/sessions creates a new session in SQLite</div></div><span class="test-duration">19ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Sessions_GetById_ReturnsFullSession</div><div class="test-desc">GET /api/sessions/{id} returns full session object with metadata</div></div><span class="test-duration">71ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Sessions_GetMessages_ReturnsHistory</div><div class="test-desc">GET /api/sessions/{id}/messages returns ordered message history after multi-turn chat</div></div><span class="test-duration">20.2s</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Sessions_ListSessions_ReturnsArray</div><div class="test-desc">GET /api/sessions returns the sessions list</div></div><span class="test-duration">31ms</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Chat_SendMessage_ReturnsResponseWithContent</div><div class="test-desc">POST /api/chat with Ollama returns a response with content and token count</div></div><span class="test-duration">9.3s</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">MultiTurn_CreateChatRenameDelete_FullLifecycle</div><div class="test-desc">Full lifecycle: create session, multi-turn chat, rename, delete</div></div><span class="test-duration">48.8s</span></div>
@@ -237,13 +240,15 @@ body{
     <div class="demo-header">
       <span class="demo-number">Demo 04</span>
       <span class="demo-title">Skills</span>
-      <span class="demo-count">3 tests</span>
-      <span class="demo-desc">Validates the skills API (list, toggle) and that the Blazor Skills page renders.</span>
+      <span class="demo-count">5 tests</span>
+      <span class="demo-desc">Validates the skills API (list, toggle, reload) and that the Blazor Skills page renders.</span>
     </div>
     <div class="test-list">
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Skills_GetList_ReturnsSkills</div><div class="test-desc">GET /api/skills returns the skills list</div></div><span class="test-duration">8ms</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Skills_EnableDisable_TogglesState</div><div class="test-desc">PUT /api/skills/{id}/toggle changes skill state</div></div><span class="test-duration">8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Skills_Reload_ReturnsSuccess</div><div class="test-desc">POST /api/skills/reload refreshes skill definitions from disk</div></div><span class="test-duration">9ms</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SkillsPage_Loads_ShowsSkillsList</div><div class="test-desc">Blazor Skills page renders with skill entries</div></div><span class="test-duration">2.9s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SkillsPage_ShowsSkillDetails_WhenExpanded</div><div class="test-desc">Blazor Skills page shows expandable skill detail entries</div></div><span class="test-duration">640ms</span></div>
     </div>
   </div>
 <!-- END_DEMO_04 -->
@@ -252,12 +257,16 @@ body{
     <div class="demo-header">
       <span class="demo-number">Demo 05</span>
       <span class="demo-title">Settings &amp; Config</span>
-      <span class="demo-count">2 tests</span>
-      <span class="demo-desc">Validates the Settings UI loads and the settings API returns current configuration.</span>
+      <span class="demo-count">6 tests</span>
+      <span class="demo-desc">Validates the Settings UI loads, settings API returns configuration, and provider switching works.</span>
     </div>
     <div class="test-list">
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SettingsPage_Loads_ShowsProviderSelector</div><div class="test-desc">Blazor Settings page shows model provider selector</div></div><span class="test-duration">697ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SettingsPage_CanSelectDifferentProvider</div><div class="test-desc">Blazor Settings page has a provider selector with multiple options</div></div><span class="test-duration">2.2s</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SettingsPage_GatewaySettingsApi_ReturnsCurrentSettings</div><div class="test-desc">GET /api/settings returns current model settings</div></div><span class="test-duration">29ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Settings_GetCurrentSettings_ReturnsProviderInfo</div><div class="test-desc">GET /api/settings returns current provider, model, and endpoint info</div></div><span class="test-duration">13ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Settings_PutSettings_UpdatesProvider</div><div class="test-desc">PUT /api/settings changes provider and GET confirms the change</div></div><span class="test-duration">35ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Settings_UpdateProvider_ChangesRuntime</div><div class="test-desc">PUT /api/settings roundtrip: update provider, verify, restore original</div></div><span class="test-duration">12ms</span></div>
     </div>
   </div>
 <!-- END_DEMO_05 -->
@@ -310,15 +319,31 @@ body{
     <div class="demo-header">
       <span class="demo-number">Demo 08</span>
       <span class="demo-title">Webhooks</span>
-      <span class="demo-count">2 tests</span>
-      <span class="demo-desc">Validates webhook event processing and listing of processed webhook sessions.</span>
+      <span class="demo-count">4 tests</span>
+      <span class="demo-desc">Validates webhook event processing, payload handling, and listing of processed webhook sessions.</span>
     </div>
     <div class="test-list">
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Webhooks_PostEvent_CreatesSession</div><div class="test-desc">POST /api/webhooks creates a webhook processing session</div></div><span class="test-duration">9.2s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Webhooks_CodeReviewPayload_CreatesSession</div><div class="test-desc">POST /api/webhooks with code-review payload creates processing session</div></div><span class="test-duration">8.7s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Webhooks_GitPushPayload_CreatesSession</div><div class="test-desc">POST /api/webhooks with git-push payload creates processing session</div></div><span class="test-duration">8.8s</span></div>
       <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Webhooks_GetList_ReturnsWebhookSessions</div><div class="test-desc">GET /api/webhooks lists processed webhook events</div></div><span class="test-duration">38.2s</span></div>
     </div>
   </div>
 <!-- END_DEMO_08 -->
+<!-- BEGIN_GATEWAY_ONLY -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">Gateway</span>
+      <span class="demo-title">Gateway Only &mdash; Standalone Tests</span>
+      <span class="demo-count">2 tests</span>
+      <span class="demo-desc">Validates gateway-specific endpoints that run independently of the full Aspire orchestration.</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Gateway_HealthEndpoint_ReturnsDetailedStatus</div><div class="test-desc">GET /health returns detailed status with timestamp</div></div><span class="test-duration">11ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Gateway_ParallelSessions_AreIsolated</div><div class="test-desc">Two parallel sessions maintain independent message histories</div></div><span class="test-duration">44.9s</span></div>
+    </div>
+  </div>
+<!-- END_GATEWAY_ONLY -->
 
   <details class="info-panel">
     <summary>&#x2139;&#xFE0F; About this Dashboard &mdash; How to Run Tests &amp; Environment Info</summary>
