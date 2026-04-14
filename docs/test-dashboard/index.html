@@ -61,6 +61,10 @@ body{
 .stat-card:hover{transform:translateY(-2px);border-color:var(--primary-light)}
 .stat-value{font-size:2.2rem;font-weight:800;line-height:1}
 .stat-label{font-size:0.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-top:6px}
+.stat-breakdown{font-size:0.7rem;color:var(--muted);margin-top:4px;opacity:0.75;font-family:"JetBrains Mono","Cascadia Code",monospace}
+.nav-links{display:flex;gap:16px;justify-content:center;padding:12px 0 0;margin-top:8px}
+.nav-links a{font-size:0.82rem;color:rgba(255,255,255,0.75);text-decoration:none;padding:4px 14px;border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,0.15);transition:all 0.2s;font-weight:500}
+.nav-links a:hover{color:#fff;border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.08)}
 .stat-passed .stat-value{color:#22c55e}
 .stat-failed .stat-value{color:#ef4444}
 .stat-total .stat-value{background:var(--gradient-hero);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -176,16 +180,20 @@ body{
       All Tests Passing
     </div>
   </div>
+  <div class="nav-links">
+    <a href="#e2e-tests">&#x1F3AD; E2E Tests (52)</a>
+    <a href="#unit-tests">&#x1F9EA; Unit Tests (94)</a>
+  </div>
 </header>
 <section class="container">
   <div class="summary-bar">
-    <div class="stat-card stat-total"><div class="stat-value"><!-- TOTAL_TESTS -->146<!-- /TOTAL_TESTS --></div><div class="stat-label">Total Tests</div></div>
-    <div class="stat-card stat-passed"><div class="stat-value"><!-- TOTAL_PASSED -->146<!-- /TOTAL_PASSED --></div><div class="stat-label">Passed</div></div>
-    <div class="stat-card stat-failed"><div class="stat-value"><!-- TOTAL_FAILED -->0<!-- /TOTAL_FAILED --></div><div class="stat-label">Failed</div></div>
-    <div class="stat-card stat-duration"><div class="stat-value"><!-- TOTAL_DURATION -->3m 49s<!-- /TOTAL_DURATION --></div><div class="stat-label">Duration</div></div>
+    <div class="stat-card stat-total"><div class="stat-value"><!-- TOTAL_TESTS -->146<!-- /TOTAL_TESTS --></div><div class="stat-label">Total Tests</div><div class="stat-breakdown">52 E2E &bull; 94 Unit</div></div>
+    <div class="stat-card stat-passed"><div class="stat-value"><!-- TOTAL_PASSED -->146<!-- /TOTAL_PASSED --></div><div class="stat-label">Passed</div><div class="stat-breakdown">52 E2E &bull; 94 Unit</div></div>
+    <div class="stat-card stat-failed"><div class="stat-value"><!-- TOTAL_FAILED -->0<!-- /TOTAL_FAILED --></div><div class="stat-label">Failed</div><div class="stat-breakdown">0 E2E &bull; 0 Unit</div></div>
+    <div class="stat-card stat-duration"><div class="stat-value"><!-- TOTAL_DURATION -->3m 49s<!-- /TOTAL_DURATION --></div><div class="stat-label">Duration</div><div class="stat-breakdown">E2E: 3m 49s &bull; Unit: &lt; 1s</div></div>
   </div>
 <!-- SECTION: E2E TESTS -->
-<div style="margin: 24px 0; padding: 12px 0;">
+<div id="e2e-tests" style="margin: 24px 0; padding: 12px 0;">
   <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--primary-light); display: flex; align-items: center; gap: 10px;">
     <span>&#x1F3AD;</span> E2E Tests (Playwright + Aspire)
     <span style="font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-left: auto;">52 tests &bull; 3m 49s</span>
@@ -355,7 +363,7 @@ body{
 
 
 <!-- SECTION: UNIT TESTS -->
-<div style="margin: 40px 0 24px; padding: 20px 0; border-top: 2px solid rgba(124,92,252,0.2);">
+<div id="unit-tests" style="margin: 40px 0 24px; padding: 20px 0; border-top: 2px solid rgba(124,92,252,0.2);">
   <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--teal-light); display: flex; align-items: center; gap: 10px;">
     <span>&#x1F9EA;</span> Unit Tests
     <span style="font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-left: auto;">94 tests &bull; &lt; 1s total</span>
