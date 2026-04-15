@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -176,7 +176,7 @@ body{
       <div class="hero-subtitle">Test Dashboard &mdash; Unit Tests + E2E (Playwright + Aspire)</div>
     </div>
     <div class="hero-badge">
-      <span class="big"><!-- TOTAL_PASSED -->163<!-- /TOTAL_PASSED --> / <!-- TOTAL_TESTS -->163<!-- /TOTAL_TESTS --></span>
+      <span class="big"><!-- TOTAL_PASSED -->344<!-- /TOTAL_PASSED --> / <!-- TOTAL_TESTS -->344<!-- /TOTAL_TESTS --></span>
       All Tests Passing
     </div>
   </div>
@@ -187,10 +187,10 @@ body{
 </header>
 <section class="container">
   <div class="summary-bar">
-    <div class="stat-card stat-total"><div class="stat-value"><!-- TOTAL_TESTS -->163<!-- /TOTAL_TESTS --></div><div class="stat-label">Total Tests</div><div class="stat-breakdown">52 E2E &bull; 111 Unit</div></div>
-    <div class="stat-card stat-passed"><div class="stat-value"><!-- TOTAL_PASSED -->163<!-- /TOTAL_PASSED --></div><div class="stat-label">Passed</div><div class="stat-breakdown">52 E2E &bull; 111 Unit</div></div>
-    <div class="stat-card stat-failed"><div class="stat-value"><!-- TOTAL_FAILED -->0<!-- /TOTAL_FAILED --></div><div class="stat-label">Failed</div><div class="stat-breakdown">0 E2E &bull; 0 Unit</div></div>
-    <div class="stat-card stat-duration"><div class="stat-value"><!-- TOTAL_DURATION -->3m 49s<!-- /TOTAL_DURATION --></div><div class="stat-label">Duration</div><div class="stat-breakdown">E2E: 3m 49s &bull; Unit: 20s</div></div>
+    <div class="stat-card stat-total"><div class="stat-value"><!-- TOTAL_TESTS -->344<!-- /TOTAL_TESTS --></div><div class="stat-label">Total Tests</div><div class="stat-breakdown">52 E2E &bull; 306 Unit &bull; 27 Integration</div></div>
+    <div class="stat-card stat-passed"><div class="stat-value"><!-- TOTAL_PASSED -->344<!-- /TOTAL_PASSED --></div><div class="stat-label">Passed</div><div class="stat-breakdown">52 E2E &bull; 306 Unit &bull; 27 Integration</div></div>
+    <div class="stat-card stat-failed"><div class="stat-value"><!-- TOTAL_FAILED -->0<!-- /TOTAL_FAILED --></div><div class="stat-label">Failed</div><div class="stat-breakdown">0 E2E &bull; 0 Unit &bull; 0 Integration</div></div>
+    <div class="stat-card stat-duration"><div class="stat-value"><!-- TOTAL_DURATION -->3m 49s<!-- /TOTAL_DURATION --></div><div class="stat-label">Duration</div><div class="stat-breakdown">E2E: 3m 49s &bull; Unit: 4s &bull; Integration: 22s</div></div>
   </div>
 <!-- SECTION: E2E TESTS -->
 <div id="e2e-tests" style="margin: 24px 0; padding: 12px 0;">
@@ -366,11 +366,285 @@ body{
 <div id="unit-tests" style="margin: 40px 0 24px; padding: 20px 0; border-top: 2px solid rgba(124,92,252,0.2);">
   <h2 style="font-size: 1.3rem; font-weight: 700; color: var(--teal-light); display: flex; align-items: center; gap: 10px;">
     <span>&#x1F9EA;</span> Unit Tests
-    <span style="font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-left: auto;">94 tests &bull; &lt; 1s total</span>
+    <span style="font-size: 0.8rem; color: var(--muted); font-weight: 500; margin-left: auto;">306 tests &bull; 4s total</span>
   </h2>
   <p style="font-size: 0.85rem; color: var(--muted); margin-top: 6px;">Fast isolated tests &mdash; no Aspire, no Ollama, no network. Run with <code style="font-family:'JetBrains Mono',monospace; background: var(--code-bg); padding: 2px 6px; border-radius: 3px; font-size: 0.8rem; color: var(--teal-light);">dotnet test tests/OpenClawNet.UnitTests</code></p>
 </div>
 
+<!-- BEGIN_UNIT_INTEGRATION -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">INTEGRATION</span>
+      <span class="demo-title">Integration Tests</span>
+      <span class="demo-count">19 tests</span>
+      <span class="demo-desc">Chat smoke tests, live LLM tests, and streaming endpoint tests</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Pipeline &mdash; EmptyMessage DoesNotThrow</div></div><span class="test-duration">1s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Pipeline &mdash; SendMessage ReturnsStreamedTokens</div></div><span class="test-duration">7.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Pipeline &mdash; WithProviderError YieldsErrorEvent</div></div><span class="test-duration">19.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; AllEventTypes MapCorrectly</div></div><span class="test-duration">8.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; EmptyMessage Returns400BadRequest</div></div><span class="test-duration">8.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; HttpRequestException YieldsErrorEvent</div></div><span class="test-duration">26.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; ModelProviderUnavailable YieldsErrorEvent</div></div><span class="test-duration">10.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; SessionIdPassedThrough AppearsInEvents</div></div><span class="test-duration">9.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; UnexpectedException YieldsErrorEventWithMessage</div></div><span class="test-duration">15.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; UsesCamelCaseJsonNaming</div></div><span class="test-duration">453.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; ValidMessage ReturnsNdjsonContentEvents</div></div><span class="test-duration">10ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; ValidMessage SetsNdjsonContentType</div></div><span class="test-duration">30.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Post &mdash; WhitespaceMessage Returns400BadRequest</div></div><span class="test-duration">9.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AzureOpenAI &mdash; CompleteAsync ReturnsResponse</div></div><span class="test-duration">8s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AzureOpenAI &mdash; Pipeline SendMessage ReturnsStreamedContent</div></div><span class="test-duration">5s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AzureOpenAI &mdash; StreamAsync YieldsTokens</div></div><span class="test-duration">4.2s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Ollama &mdash; CompleteAsync ReturnsResponse</div></div><span class="test-duration">3.2s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Ollama &mdash; Pipeline SendMessage ReturnsStreamedContent</div></div><span class="test-duration">9.5s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Ollama &mdash; StreamAsync YieldsTokens</div></div><span class="test-duration">3s</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_INTEGRATION -->
+<!-- BEGIN_UNIT_GATEWAY -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">GATEWAY</span>
+      <span class="demo-title">Gateway &amp; Routing</span>
+      <span class="demo-count">41 tests</span>
+      <span class="demo-desc">Chat hub, model client routing, runtime settings, and service registration</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; DefaultDeploymentName IsGpt5Mini</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; ReadsEndpointFromAzureOpenAISection TakingPrecedence</div></div><span class="test-duration">2.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; ReadsEndpointFromModelSection</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; RegistersIModelClient</div></div><span class="test-duration">4.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; Throws WhenNotConfigured</div></div><span class="test-duration">2.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; DoesNotThrow WhenApiKeyModeFullyConfigured</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; DoesNotThrow WhenIntegratedModeWithEndpointOnly</div></div><span class="test-duration">1.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; HandlesIntegratedAuthMode CaseInsensitively(authMode: "INTEGRATED")</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; HandlesIntegratedAuthMode CaseInsensitively(authMode: "integrated")</div></div><span class="test-duration">198.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; HandlesIntegratedAuthMode CaseInsensitively(authMode: "Integrated")</div></div><span class="test-duration">2.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; ThrowsInvalidOperation WhenApiKeyMissingInApiKeyMode</div></div><span class="test-duration">1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; ThrowsInvalidOperation WhenEndpointNotConfigured</div></div><span class="test-duration">1.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; ThrowsInvalidOperation WhenIntegratedModeButNoEndpoint</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DefaultOptions &mdash; HaveGpt5MiniDeployment</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DefaultOptions &mdash; UseApiKeyAuthMode</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Options &mdash; EmptyDeploymentKeepsDefault WhenNotSetInConfig</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ProviderName &mdash; IsAzureOpenAI</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; Throws WhenNotConfigured</div></div><span class="test-duration">1.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamChat &mdash; CatchesGenericException YieldsError</div></div><span class="test-duration">8.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamChat &mdash; CatchesProviderException YieldsError</div></div><span class="test-duration">4.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamChat &mdash; EmptyQuestion StillProcesses</div></div><span class="test-duration">5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamChat &mdash; HttpRequestException YieldsProviderUnavailableError</div></div><span class="test-duration">5.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamChat &mdash; MapsAllEventTypes</div></div><span class="test-duration">7.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamChat &mdash; YieldsContentEvents</div></div><span class="test-duration">44ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateAzureOpenAI &mdash; ThrowsWhenApiKeyMissing</div></div><span class="test-duration">7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetOrCreate &mdash; CachesClient</div></div><span class="test-duration">3.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetOrCreate &mdash; DefaultsToOllama ForUnknownProvider</div></div><span class="test-duration">4.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetOrCreate &mdash; RecreatesClient WhenSettingsChange</div></div><span class="test-duration">15.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetOrCreate &mdash; ReturnsAzureClient WhenProviderIsAzureOpenAI</div></div><span class="test-duration">179.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetOrCreate &mdash; ReturnsOllamaClient WhenProviderIsOllama</div></div><span class="test-duration">3.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Load &mdash; BackfillsApiKeyFromConfig WhenFileHasNullApiKey</div></div><span class="test-duration">34ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Load &mdash; FallsBackToConfig WhenNoFile</div></div><span class="test-duration">3.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Load &mdash; HandlesMissingFile Gracefully</div></div><span class="test-duration">4.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Load &mdash; IConfigOverridesFileForProviderEndpointDeployment</div></div><span class="test-duration">5.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; PersistsConfig WithApiKey</div></div><span class="test-duration">5.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; PreservesApiKey InMemory</div></div><span class="test-duration">3.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AllAgentProviders &mdash; AreResolvable</div></div><span class="test-duration">19ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ModelOptions &mdash; BoundFromConfiguration</div></div><span class="test-duration">9.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">RuntimeAgentProvider &mdash; CanRouteToOllama</div></div><span class="test-duration">168.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">RuntimeModelClient &mdash; IsSingleton</div></div><span class="test-duration">3.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">RuntimeModelSettings &mdash; IsSingleton</div></div><span class="test-duration">2ms</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_GATEWAY -->
+<!-- BEGIN_UNIT_AGENT -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">AGENT</span>
+      <span class="demo-title">Agent Runtime &amp; Prompts</span>
+      <span class="demo-count">23 tests</span>
+      <span class="demo-desc">Streaming agent execution, prompt composition, and chat client adapters</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AgentStreamEventType &mdash; ContainsToolApprovalRequest</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; DoesNotEmitToolApprovalRequest ForNonApprovalTools</div></div><span class="test-duration">921.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; EmitsToolApprovalRequest BeforeToolCallStart ForApprovalRequiredTools</div></div><span class="test-duration">19.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; YieldsError WhenPromptComposeThrows</div></div><span class="test-duration">5.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; YieldsError WhenStorageFailsOnUserMessage</div></div><span class="test-duration">7.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetResponseAsync &mdash; ConvertsMessages Correctly</div></div><span class="test-duration">24.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetResponseAsync &mdash; PropagatesExceptions</div></div><span class="test-duration">21.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetStreamingResponseAsync &mdash; WithToolCalls YieldsFunctionContent</div></div><span class="test-duration">186.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetStreamingResponseAsync &mdash; YieldsUpdates</div></div><span class="test-duration">18.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ParseArguments &mdash; HandlesEmptyString</div></div><span class="test-duration">38.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ParseArguments &mdash; HandlesInvalidJson</div></div><span class="test-duration">1.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ParseArguments &mdash; HandlesValidJson</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ToOpenClawMessage &mdash; ExtractsFunctionCallContent</div></div><span class="test-duration">17.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ToOpenClawMessage &mdash; MapsRoles Correctly(meaiRole: "assistant", expectedOcRole: Assistant)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ToOpenClawMessage &mdash; MapsRoles Correctly(meaiRole: "system", expectedOcRole: System)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ToOpenClawMessage &mdash; MapsRoles Correctly(meaiRole: "tool", expectedOcRole: Tool)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ToOpenClawMessage &mdash; MapsRoles Correctly(meaiRole: "user", expectedOcRole: User)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; FallbackPrompt ContainsWorkspacePath</div></div><span class="test-duration">2.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; FallbackPrompt InstructsFileSystemToolUsage</div></div><span class="test-duration">1.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; IncludesHistory</div></div><span class="test-duration">31ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; IncludesSessionSummary</div></div><span class="test-duration">2.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; IncludesSystemPrompt</div></div><span class="test-duration">21.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; UsesAgentsMd WhenWorkspaceProvides</div></div><span class="test-duration">5.7ms</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_AGENT -->
+<!-- BEGIN_UNIT_MODELS -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">MODELS</span>
+      <span class="demo-title">Model Providers</span>
+      <span class="demo-count">36 tests</span>
+      <span class="demo-desc">Ollama, Azure OpenAI, GitHub Copilot provider configuration and request handling</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AllProperties &mdash; CanBeAssigned</div></div><span class="test-duration">8.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DefaultValues &mdash; AreSetCorrectly</div></div><span class="test-duration">20.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">RequiredName &mdash; CanBeSetAndRetrieved</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; Throws WhenEndpointNotConfigured</div></div><span class="test-duration">26.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; ReturnsFalse WhenNoEndpoint</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; ReturnsTrue WhenEndpointAndIntegratedAuth</div></div><span class="test-duration">1.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; ReturnsTrue WhenEndpointAndKeyConfigured</div></div><span class="test-duration">1.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ProviderName &mdash; ReturnsAzureOpenAI</div></div><span class="test-duration">5.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; ReturnsNonEmptyResponse</div></div><span class="test-duration">4.3s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; ReturnsTrueWhenConfigured</div></div><span class="test-duration">5.9s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; WithTools YieldsToolCallChunk</div></div><span class="test-duration">4.2s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; YieldsChunksAndCompletesSuccessfully</div></div><span class="test-duration">4.5s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; ReturnsNonNull</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; UsesDefaultModel WhenProfileHasNone</div></div><span class="test-duration">2.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DisposeAsync &mdash; CanBeCalledMultipleTimes</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; DoesNotThrow WhenNoToken</div></div><span class="test-duration">130.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; ReturnsTrueWhenTokenConfigured</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ProviderName &mdash; ReturnsGitHubCopilot</div></div><span class="test-duration">1.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; ReturnsNonNull WithDefaultOptions</div></div><span class="test-duration">3.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; UsesProfileModel WhenSpecified</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; ReturnsFalse WhenEndpointUnreachable</div></div><span class="test-duration">4.2s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ProviderName &mdash; ReturnsOllama</div></div><span class="test-duration">33.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; MapsChatMessageRoles Correctly</div></div><span class="test-duration">4.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; MapsToolCallsFromResponse</div></div><span class="test-duration">5.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; ReturnsUsageInfo</div></div><span class="test-duration">3.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; SendsModelAndMessages</div></div><span class="test-duration">1.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; SendsStreamFalse ForNonStreaming</div></div><span class="test-duration">24.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; SerializesTools WhenProvided</div></div><span class="test-duration">16.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; ExtractsToolCalls FromDoneFalseChunk</div></div><span class="test-duration">3.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; GeneratesSyntheticId WhenOllamaOmitsId</div></div><span class="test-duration">2.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; MultipleToolCalls InSingleChunk</div></div><span class="test-duration">2.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; PreservesToolCallIds FromOllama</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; SendsStreamTrue InRequest</div></div><span class="test-duration">3.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; ToolCallsInDoneTrueChunk StillExtracted</div></div><span class="test-duration">90.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; ToolCallsThenContent BothPreserved</div></div><span class="test-duration">2.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; WithTools YieldsToolCallChunk</div></div><span class="test-duration">7.5s</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_MODELS -->
+<!-- BEGIN_UNIT_STORAGE -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">STORAGE</span>
+      <span class="demo-title">Storage &amp; Persistence</span>
+      <span class="demo-count">16 tests</span>
+      <span class="demo-desc">Conversation store, agent profile store, and EF Core data access</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DeleteAsync &mdash; RemovesProfile</div></div><span class="test-duration">14.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetAsync &mdash; ReturnsNull WhenNotFound</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetDefaultAsync &mdash; ReturnsExistingDefault</div></div><span class="test-duration">1s</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetDefaultAsync &mdash; SeedsDefault WhenNoneExists</div></div><span class="test-duration">1.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ListAsync &mdash; ReturnsAllProfiles OrderedByName</div></div><span class="test-duration">11.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SaveAsync &mdash; ThenGetAsync ReturnsProfile</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SaveAsync &mdash; UpdatesExistingProfile</div></div><span class="test-duration">3.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; AutoCreatedSession HasDefaultTitle</div></div><span class="test-duration">76ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; AutoCreatesSession WhenSessionNotFound</div></div><span class="test-duration">14ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; IncrementsOrderIndex</div></div><span class="test-duration">2.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; StoresMessage</div></div><span class="test-duration">2.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateSession &mdash; ReturnsNewSession</div></div><span class="test-duration">1.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DeleteSession &mdash; RemovesSession</div></div><span class="test-duration">4.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetSession &mdash; ReturnsNullWhenNotFound</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ListSessions &mdash; ReturnsOrderedByUpdatedAt</div></div><span class="test-duration">971.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UpdateSessionTitle &mdash; ChangesTitle</div></div><span class="test-duration">2.7ms</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_STORAGE -->
+<!-- BEGIN_UNIT_JOBS -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">JOBS</span>
+      <span class="demo-title">Job Lifecycle</span>
+      <span class="demo-count">67 tests</span>
+      <span class="demo-desc">State machine validation for job status transitions</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; ActiveToCancelled ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; ActiveToCompleted ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; ActiveToDraft ReturnsFalse</div></div><span class="test-duration">8.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; ActiveToPaused ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Active, to: Draft)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Cancelled, to: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Cancelled, to: Completed)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Cancelled, to: Draft)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Cancelled, to: Paused)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Completed, to: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Completed, to: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Completed, to: Draft)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Completed, to: Paused)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Draft, to: Completed)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Draft, to: Paused)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Paused, to: Completed)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllInvalidTransitions ReturnFalse(from: Paused, to: Draft)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllValidTransitions ReturnTrue(from: Active, to: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllValidTransitions ReturnTrue(from: Active, to: Completed)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllValidTransitions ReturnTrue(from: Active, to: Paused)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllValidTransitions ReturnTrue(from: Draft, to: Active)</div></div><span class="test-duration">3.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllValidTransitions ReturnTrue(from: Draft, to: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllValidTransitions ReturnTrue(from: Paused, to: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; AllValidTransitions ReturnTrue(from: Paused, to: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CancelledToActive ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CancelledToAnyState ReturnsFalse(to: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CancelledToAnyState ReturnsFalse(to: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CancelledToAnyState ReturnsFalse(to: Completed)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CancelledToAnyState ReturnsFalse(to: Draft)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CancelledToAnyState ReturnsFalse(to: Paused)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CancelledToDraft ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CompletedToActive ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CompletedToAnyState ReturnsFalse(to: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CompletedToAnyState ReturnsFalse(to: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CompletedToAnyState ReturnsFalse(to: Completed)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CompletedToAnyState ReturnsFalse(to: Draft)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CompletedToAnyState ReturnsFalse(to: Paused)</div></div><span class="test-duration">18ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; CompletedToDraft ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; DraftToActive ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; DraftToCancelled ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; DraftToCompleted ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; DraftToPaused ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; PausedToActive ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; PausedToCancelled ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; PausedToCompleted ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; PausedToDraft ReturnsFalse</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; SameStateToSameState ReturnsFalse(status: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; SameStateToSameState ReturnsFalse(status: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; SameStateToSameState ReturnsFalse(status: Completed)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; SameStateToSameState ReturnsFalse(status: Draft)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAllowed &mdash; SameStateToSameState ReturnsFalse(status: Paused)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsEditable &mdash; Draft ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsEditable &mdash; NonEditableStates ReturnFalse(status: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsEditable &mdash; NonEditableStates ReturnFalse(status: Cancelled)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsEditable &mdash; NonEditableStates ReturnFalse(status: Completed)</div></div><span class="test-duration">1.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsEditable &mdash; Paused ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsTerminal &mdash; Cancelled ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsTerminal &mdash; Completed ReturnsTrue</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsTerminal &mdash; NonTerminalStates ReturnFalse(status: Active)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsTerminal &mdash; NonTerminalStates ReturnFalse(status: Draft)</div></div><span class="test-duration">2.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsTerminal &mdash; NonTerminalStates ReturnFalse(status: Paused)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">JobStatus &mdash; Active HasValue1</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">JobStatus &mdash; Cancelled HasValue3</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">JobStatus &mdash; Completed HasValue4</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">JobStatus &mdash; Draft HasValue0</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">JobStatus &mdash; HasExactlyFiveValues</div></div><span class="test-duration">2.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">JobStatus &mdash; Paused HasValue2</div></div><span class="test-duration">&lt; 1ms</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_JOBS -->
 <!-- BEGIN_UNIT_TOOLS -->
   <div class="demo-card">
     <div class="demo-header">
@@ -380,47 +654,26 @@ body{
       <span class="demo-desc">File operations, tool execution, and registry management</span>
     </div>
     <div class="test-list">
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteAsync &mdash; calls Tool_ When Found</div></div><span class="test-duration">34.9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteAsync &mdash; returns Fail_ When Tool Not Found</div></div><span class="test-duration">2.7ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteBatchAsync &mdash; executes All Tools</div></div><span class="test-duration">25.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FindProjects &mdash; excludes Bin And Obj Directories</div></div><span class="test-duration">11.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FindProjects &mdash; returns Failure_ When Directory Not Found</div></div><span class="test-duration">2.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FindProjects &mdash; returns Project Files_ When Csproj Exists</div></div><span class="test-duration">23.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetAllTools &mdash; returns Registered Tools</div></div><span class="test-duration">34.4ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetTool &mdash; is Case Insensitive</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetTool &mdash; returns Null_ When Not Found</div></div><span class="test-duration">1.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetToolManifest &mdash; returns Metadata</div></div><span class="test-duration">5.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">List &mdash; relative Path_ Lists Workspace Directory</div></div><span class="test-duration">5.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">List &mdash; with Absolute Path_ Lists Directory</div></div><span class="test-duration">8.5ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Read &mdash; blocked Path_ Also Blocks Absolute Variants</div></div><span class="test-duration">41.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Read &mdash; blocked Path_ Returns Failure</div></div><span class="test-duration">7.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Read &mdash; with Absolute Path_ Reads File</div></div><span class="test-duration">8.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Register &mdash; adds Tool To Registry</div></div><span class="test-duration">1.5ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Write &mdash; then Read_ Round Trips</div></div><span class="test-duration">7.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FindProjects &mdash; ExcludesBinAndObjDirectories</div></div><span class="test-duration">11.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FindProjects &mdash; ReturnsFailure WhenDirectoryNotFound</div></div><span class="test-duration">2.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FindProjects &mdash; ReturnsProjectFiles WhenCsprojExists</div></div><span class="test-duration">69.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">List &mdash; RelativePath ListsWorkspaceDirectory</div></div><span class="test-duration">5.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">List &mdash; WithAbsolutePath ListsDirectory</div></div><span class="test-duration">9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Read &mdash; BlockedPath AlsoBlocksAbsoluteVariants</div></div><span class="test-duration">57ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Read &mdash; BlockedPath ReturnsFailure</div></div><span class="test-duration">12.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Read &mdash; WithAbsolutePath ReadsFile</div></div><span class="test-duration">11.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Write &mdash; ThenRead RoundTrips</div></div><span class="test-duration">11.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteAsync &mdash; CallsTool WhenFound</div></div><span class="test-duration">7.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteAsync &mdash; ReturnsFail WhenToolNotFound</div></div><span class="test-duration">1.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteBatchAsync &mdash; ExecutesAllTools</div></div><span class="test-duration">20.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetAllTools &mdash; ReturnsRegisteredTools</div></div><span class="test-duration">33.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetTool &mdash; IsCaseInsensitive</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetTool &mdash; ReturnsNull WhenNotFound</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetToolManifest &mdash; ReturnsMetadata</div></div><span class="test-duration">5.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Register &mdash; AddsToolToRegistry</div></div><span class="test-duration">4.8ms</span></div>
     </div>
   </div>
 <!-- END_UNIT_TOOLS -->
-<!-- BEGIN_UNIT_STORAGE -->
-  <div class="demo-card">
-    <div class="demo-header">
-      <span class="demo-number">STORAGE</span>
-      <span class="demo-title">Conversation Store</span>
-      <span class="demo-count">9 tests</span>
-      <span class="demo-desc">Session management and message persistence</span>
-    </div>
-    <div class="test-list">
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; auto Created Session_ Has Default Title</div></div><span class="test-duration">49.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; auto Creates Session_ When Session Not Found</div></div><span class="test-duration">1.9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; increments Order Index</div></div><span class="test-duration">2.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddMessage &mdash; stores Message</div></div><span class="test-duration">2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateSession &mdash; returns New Session</div></div><span class="test-duration">1.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DeleteSession &mdash; removes Session</div></div><span class="test-duration">11.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetSession &mdash; returns Null When Not Found</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ListSessions &mdash; returns Ordered By Updated At</div></div><span class="test-duration">757.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UpdateSessionTitle &mdash; changes Title</div></div><span class="test-duration">4.4ms</span></div>
-    </div>
-  </div>
-<!-- END_UNIT_STORAGE -->
 <!-- BEGIN_UNIT_SKILLS -->
   <div class="demo-card">
     <div class="demo-header">
@@ -430,22 +683,22 @@ body{
       <span class="demo-desc">Skill discovery, installation, and metadata parsing</span>
     </div>
     <div class="test-list">
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">BuiltInSkills &mdash; have Source Built In</div></div><span class="test-duration">30.4ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DisableSkill &mdash; excludes It From Active Skills</div></div><span class="test-duration">8.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">EnableSkill &mdash; restores It To Active Skills</div></div><span class="test-duration">12.9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InstallSkillAsync &mdash; creates Skill Md In Installed Directory</div></div><span class="test-duration">7.3ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InstallSkillAsync &mdash; sets Source To Installed</div></div><span class="test-duration">10.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InstallSkillAsync &mdash; skill Appears In List After Install</div></div><span class="test-duration">6.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; with Disabled Flag_ Sets Enabled</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; with Empty Content_ Returns Empty Body</div></div><span class="test-duration">36ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; without Frontmatter_ Uses File Name</div></div><span class="test-duration">9.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; with Valid Frontmatter_ Extracts Metadata</div></div><span class="test-duration">8.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ReloadAsync &mdash; ignores Subdirectories Without Skill Md</div></div><span class="test-duration">5.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ReloadAsync &mdash; loads Flat Md Files</div></div><span class="test-duration">5.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ReloadAsync &mdash; loads Subdirectory Skill Md</div></div><span class="test-duration">7.7ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UninstallSkillAsync &mdash; deletes Directory</div></div><span class="test-duration">7.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UninstallSkillAsync &mdash; does Not Throw_ When Skill Not Found</div></div><span class="test-duration">41.9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UninstallSkillAsync &mdash; removes Skill From List</div></div><span class="test-duration">6.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">BuiltInSkills &mdash; HaveSourceBuiltIn</div></div><span class="test-duration">29.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DisableSkill &mdash; ExcludesItFromActiveSkills</div></div><span class="test-duration">28.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">EnableSkill &mdash; RestoresItToActiveSkills</div></div><span class="test-duration">20.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InstallSkillAsync &mdash; CreatesSkillMdInInstalledDirectory</div></div><span class="test-duration">10.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InstallSkillAsync &mdash; SetsSourceToInstalled</div></div><span class="test-duration">12.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InstallSkillAsync &mdash; SkillAppearsInListAfterInstall</div></div><span class="test-duration">7.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ReloadAsync &mdash; IgnoresSubdirectoriesWithoutSkillMd</div></div><span class="test-duration">8.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ReloadAsync &mdash; LoadsFlatMdFiles</div></div><span class="test-duration">7.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ReloadAsync &mdash; LoadsSubdirectorySkillMd</div></div><span class="test-duration">11.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UninstallSkillAsync &mdash; DeletesDirectory</div></div><span class="test-duration">9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UninstallSkillAsync &mdash; DoesNotThrow WhenSkillNotFound</div></div><span class="test-duration">16ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">UninstallSkillAsync &mdash; RemovesSkillFromList</div></div><span class="test-duration">8.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; WithDisabledFlag SetsEnabled</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; WithEmptyContent ReturnsEmptyBody</div></div><span class="test-duration">1.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; WithoutFrontmatter UsesFileName</div></div><span class="test-duration">1.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parse &mdash; WithValidFrontmatter ExtractsMetadata</div></div><span class="test-duration">1.2ms</span></div>
     </div>
   </div>
 <!-- END_UNIT_SKILLS -->
@@ -458,109 +711,126 @@ body{
       <span class="demo-desc">Concurrent task scheduling and settings persistence</span>
     </div>
     <div class="test-list">
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Decrement &mdash; decreases Count</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetSettings &mdash; reads From Configuration</div></div><span class="test-duration">2.5ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetSettings &mdash; returns Defaults_ When No File Or Config</div></div><span class="test-duration">2.3ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Increment &mdash; increases Count</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InitialCount &mdash; is Zero</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsThreadSafe &mdash; under Concurrent Increment Decrement</div></div><span class="test-duration">37.7ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; clamps Values_ When Out Of Range</div></div><span class="test-duration">26.3ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; is Thread Safe_ Under Concurrent Writes</div></div><span class="test-duration">42.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; loaded File Overrides Config_ On Restart</div></div><span class="test-duration">3.9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; persists To File</div></div><span class="test-duration">12.5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Decrement &mdash; DecreasesCount</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Increment &mdash; IncreasesCount</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">InitialCount &mdash; IsZero</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsThreadSafe &mdash; UnderConcurrentIncrementDecrement</div></div><span class="test-duration">48.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetSettings &mdash; ReadsFromConfiguration</div></div><span class="test-duration">2.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">GetSettings &mdash; ReturnsDefaults WhenNoFileOrConfig</div></div><span class="test-duration">2.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; ClampsValues WhenOutOfRange</div></div><span class="test-duration">65.3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; IsThreadSafe UnderConcurrentWrites</div></div><span class="test-duration">40.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; LoadedFileOverridesConfig OnRestart</div></div><span class="test-duration">3.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Update &mdash; PersistsToFile</div></div><span class="test-duration">12.3ms</span></div>
     </div>
   </div>
 <!-- END_UNIT_SCHEDULER -->
-<!-- BEGIN_UNIT_MODELS -->
+<!-- BEGIN_UNIT_SERVICES -->
   <div class="demo-card">
     <div class="demo-header">
-      <span class="demo-number">MODELS</span>
-      <span class="demo-title">Model Providers (Ollama &amp; Azure)</span>
-      <span class="demo-count">31 tests</span>
-      <span class="demo-desc">LLM client configuration and request/response handling</span>
+      <span class="demo-number">SERVICES</span>
+      <span class="demo-title">Runtime Services</span>
+      <span class="demo-count">5 tests</span>
+      <span class="demo-desc">Agent provider routing and runtime service wiring</span>
     </div>
     <div class="test-list">
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; default Deployment Name_ Is Gpt5 Mini</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; reads Endpoint From Azure Open A I Section_ Taking Precedence</div></div><span class="test-duration">4ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; reads Endpoint From Model Section</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AddAzureOpenAI &mdash; registers I Model Client</div></div><span class="test-duration">5.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; maps Chat Message Roles_ Correctly</div></div><span class="test-duration">1.9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; maps Tool Calls From Response</div></div><span class="test-duration">1.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; returns Usage Info</div></div><span class="test-duration">1.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; sends Model And Messages</div></div><span class="test-duration">1.4ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; sends Stream False_ For Non Streaming</div></div><span class="test-duration">17.5ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; serializes Tools_ When Provided</div></div><span class="test-duration">5.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CompleteAsync &mdash; throws_ When Not Configured</div></div><span class="test-duration">71.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; does Not Throw_ When Api Key Mode Fully Configured</div></div><span class="test-duration">1.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; does Not Throw_ When Integrated Mode With Endpoint Only</div></div><span class="test-duration">1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; handles Integrated Auth Mode_ Case Insensitively(auth Mode: " I N T...</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; handles Integrated Auth Mode_ Case Insensitively(auth Mode: " Integ...</div></div><span class="test-duration">1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; handles Integrated Auth Mode_ Case Insensitively(auth Mode: "integr...</div></div><span class="test-duration">84.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; leaves Client Null_ When Api Key Missing In Api Key Mode</div></div><span class="test-duration">1.2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Constructor &mdash; leaves Client Null_ When Integrated Mode But No Endpoint</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DefaultOptions &mdash; have Gpt5 Mini Deployment</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">DefaultOptions &mdash; use Api Key Auth Mode</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; returns False_ When Endpoint Not Configured</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Options &mdash; empty Deployment Keeps Default_ When Not Set In Config</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ProviderName &mdash; is Azure Open A I</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; extracts Tool Calls_ From Done False Chunk</div></div><span class="test-duration">1.4ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; generates Synthetic Id_ When Ollama Omits Id</div></div><span class="test-duration">3ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; multiple Tool Calls_ In Single Chunk</div></div><span class="test-duration">1.3ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; preserves Tool Call Ids_ From Ollama</div></div><span class="test-duration">1.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; sends Stream True_ In Request</div></div><span class="test-duration">1.7ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; throws_ When Not Configured</div></div><span class="test-duration">5.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; tool Calls In Done True Chunk_ Still Extracted</div></div><span class="test-duration">122ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">StreamAsync &mdash; tool Calls Then Content_ Both Preserved</div></div><span class="test-duration">1.6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; RoutesToCorrectProvider BasedOnSettings</div></div><span class="test-duration">7.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; Throws WhenUnknownProviderName</div></div><span class="test-duration">3.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateChatClient &mdash; UsesProfileProvider WhenSpecified</div></div><span class="test-duration">257.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">IsAvailableAsync &mdash; DelegatesToActiveProvider</div></div><span class="test-duration">8.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ProviderName &mdash; ReturnsActiveProvidersName</div></div><span class="test-duration">1.6ms</span></div>
     </div>
   </div>
-<!-- END_UNIT_MODELS -->
-<!-- BEGIN_UNIT_AGENT -->
-  <div class="demo-card">
-    <div class="demo-header">
-      <span class="demo-number">AGENT</span>
-      <span class="demo-title">Agent Runtime &amp; Prompts</span>
-      <span class="demo-count">11 tests</span>
-      <span class="demo-desc">Streaming agent execution and prompt composition</span>
-    </div>
-    <div class="test-list">
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">AgentStreamEventType &mdash; contains Tool Approval Request</div></div><span class="test-duration">&lt; 1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; fallback Prompt_ Contains Workspace Path</div></div><span class="test-duration">2.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; fallback Prompt_ Instructs File System Tool Usage</div></div><span class="test-duration">3.3ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; includes History</div></div><span class="test-duration">32ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; includes Session Summary</div></div><span class="test-duration">2.1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; includes System Prompt</div></div><span class="test-duration">16.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ComposeAsync &mdash; uses Agents Md_ When Workspace Provides</div></div><span class="test-duration">2.8ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; does Not Emit Tool Approval Request_ For Non Approval Tools</div></div><span class="test-duration">813.6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; emits Tool Approval Request_ Before Tool Call Start_ For App...</div></div><span class="test-duration">9.4ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; yields Error_ When Prompt Compose Throws</div></div><span class="test-duration">5ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ExecuteStreamAsync &mdash; yields Error_ When Storage Fails On User Message</div></div><span class="test-duration">8.4ms</span></div>
-    </div>
-  </div>
-<!-- END_UNIT_AGENT -->
+<!-- END_UNIT_SERVICES -->
 <!-- BEGIN_UNIT_DEMOS -->
   <div class="demo-card">
     <div class="demo-header">
       <span class="demo-number">DEMOS</span>
-      <span class="demo-title">Document Processing Pipeline</span>
+      <span class="demo-title">Document Pipeline</span>
       <span class="demo-count">12 tests</span>
-      <span class="demo-desc">Real-world demo scenario: scheduler concurrency, cron calculation, filesystem ops, and DTO mapping</span>
+      <span class="demo-desc">End-to-end document processing, file system demos, and extraction</span>
     </div>
     <div class="test-list">
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService_ProcessDueJobs_WithConcurrencyDisabled_SkipsRunningJob</div><div class="test-desc">Verifies job with AllowConcurrentRuns=false is skipped when already running</div></div><span class="test-duration">2ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService_CalculateNextRun_StandardCron</div><div class="test-desc">Tests standard 5-field cron expression parsing</div></div><span class="test-duration">1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService_CalculateNextRun_WithSeconds</div><div class="test-desc">Tests 6-field cron expression with seconds precision</div></div><span class="test-duration">9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService_CalculateNextRun_RespectsEndAt</div><div class="test-desc">Returns null when next run would be past EndAt boundary</div></div><span class="test-duration">1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ScheduledJob_DefaultAllowConcurrentRuns_IsFalse</div><div class="test-desc">New ScheduledJob defaults AllowConcurrentRuns to false</div></div><span class="test-duration">1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateJobRequest_WithAllowConcurrentRuns_MapsCorrectly</div><div class="test-desc">DTO properly maps AllowConcurrentRuns property</div></div><span class="test-duration">6ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool_ListDirectory_ReturnsSampleDocs</div><div class="test-desc">Lists docs/sampleDocs and finds all 5 PDFs</div></div><span class="test-duration">5ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool_ListDirectory_ReturnsDirectoriesAndFiles</div><div class="test-desc">Directory listing includes [DIR] prefixes for subdirectories</div></div><span class="test-duration">9ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool_ReadFile_BlocksSensitivePaths(.env)</div><div class="test-desc">Blocks reading .env files for security</div></div><span class="test-duration">32ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool_ReadFile_BlocksSensitivePaths(.git/config)</div><div class="test-desc">Blocks reading .git paths for security</div></div><span class="test-duration">1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool_ReadFile_BlocksSensitivePaths(appsettings.Production.json)</div><div class="test-desc">Blocks reading production config files</div></div><span class="test-duration">1ms</span></div>
-      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool_FindProjects_FindsCsproj</div><div class="test-desc">find_projects action locates .csproj files in workspace</div></div><span class="test-duration">7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">CreateJobRequest &mdash; WithAllowConcurrentRuns MapsCorrectly</div></div><span class="test-duration">9.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool &mdash; FindProjects FindsCsproj</div></div><span class="test-duration">9.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool &mdash; ListDirectory ReturnsDirectoriesAndFiles</div></div><span class="test-duration">8.2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool &mdash; ListDirectory ReturnsSampleDocs</div></div><span class="test-duration">8.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool &mdash; ReadFile BlocksSensitivePaths(sensitiveRelPath: ".env")</div></div><span class="test-duration">8.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool &mdash; ReadFile BlocksSensitivePaths(sensitiveRelPath: ".git/config")</div></div><span class="test-duration">2.1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">FileSystemTool &mdash; ReadFile BlocksSensitivePaths(sensitiveRelPath: "appsettings.Production.json")</div></div><span class="test-duration">1.7ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ScheduledJob &mdash; DefaultAllowConcurrentRuns IsFalse</div></div><span class="test-duration">2.4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService &mdash; CalculateNextRun RespectsEndAt</div></div><span class="test-duration">5.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService &mdash; CalculateNextRun StandardCron</div></div><span class="test-duration">1.9ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService &mdash; CalculateNextRun WithSeconds</div></div><span class="test-duration">26.8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">SchedulerPollingService &mdash; ProcessDueJobs WithConcurrencyDisabled SkipsRunningJob</div></div><span class="test-duration">5.2ms</span></div>
     </div>
   </div>
 <!-- END_UNIT_DEMOS -->
+<!-- BEGIN_UNIT_AGENT_PROFILES -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">AGENT PROFILES</span>
+      <span class="demo-title">Agent Profiles &amp; Import</span>
+      <span class="demo-count">32 tests</span>
+      <span class="demo-desc">Markdown parser, profile store, API endpoints, default enforcement</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; PlainMarkdown ExtractsHeadingAsName</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; YamlFrontMatter ExtractsAllFields</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; FrontMatterWithoutName FallsBackToHeading</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; EmptyInput UsesFallbackName</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; ToolsArray ParsedToCommaSeparated</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; MalformedYaml TreatsAsInstructions</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; PartialFrontMatter UnsetFieldsAreNull</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Parser &mdash; HeadingSlugification Theory (7 cases)</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; SaveAsync WithDefault ClearsOtherDefaults</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; OnlyOneDefault AfterMultipleSaves</div></div><span class="test-duration">1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; NonDefault DoesNotAffectExisting</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; GetDefaultAsync SeedsWhenEmpty</div></div><span class="test-duration">1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; GetAsync ReturnsNull ForNonExistent</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; DeleteAsync RemovesProfile</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; ListAsync ReturnsOrdered</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; Import PlainMarkdown ReturnsProfile</div></div><span class="test-duration">5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; Import YamlFrontMatter ParsesCorrectly</div></div><span class="test-duration">3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; Get ListReturnsAll</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; Put CreatesAndUpdates</div></div><span class="test-duration">3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; Delete RemovesProfile</div></div><span class="test-duration">2ms</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_AGENT_PROFILES -->
+<!-- BEGIN_UNIT_MODEL_PROVIDERS -->
+  <div class="demo-card">
+    <div class="demo-header">
+      <span class="demo-number">MODEL PROVIDERS</span>
+      <span class="demo-title">Model Provider Definitions</span>
+      <span class="demo-count">22 tests</span>
+      <span class="demo-desc">Multi-instance model provider store, REST API endpoints, chat profile resolution, orchestrator passthrough</span>
+    </div>
+    <div class="test-list">
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; SaveAsync ThenGetAsync ReturnsDefinition</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; GetAsync ReturnsNull WhenNotFound</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; ListAsync ReturnsAll OrderedByName</div></div><span class="test-duration">1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; ListByTypeAsync ReturnsOnlyMatchingType</div></div><span class="test-duration">1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; DeleteAsync RemovesDefinition</div></div><span class="test-duration">&lt; 1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; SaveAsync UpdatesExisting</div></div><span class="test-duration">1ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; SeedDefaultsAsync CreatesDefaults WhenEmpty</div></div><span class="test-duration">3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; SeedDefaultsAsync DoesNotDuplicate</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; GetList ReturnsAllProviders</div></div><span class="test-duration">5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; GetByName ExistingProvider ReturnsOk</div></div><span class="test-duration">3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; GetByName NonExistent ReturnsNotFound</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; PutProvider CreatesNew</div></div><span class="test-duration">4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; PutProvider UpdatesExisting</div></div><span class="test-duration">3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; PutProvider PreservesApiKey WhenNotProvided</div></div><span class="test-duration">4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; DeleteProvider RemovesProvider</div></div><span class="test-duration">3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; DeleteProvider NonExistent ReturnsNoContent</div></div><span class="test-duration">2ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">API &mdash; GetList MasksApiKey ReturnsHasApiKeyFlag</div></div><span class="test-duration">4ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ChatStream &mdash; WithExplicitProfileName UsesSpecifiedProfile</div></div><span class="test-duration">8ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ChatStream &mdash; WithNonExistentProfile FallsBackToDefault</div></div><span class="test-duration">6ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">ChatStream &mdash; WithoutProfileName UsesDefaultProfile</div></div><span class="test-duration">5ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Orchestrator &mdash; StreamAsync PassesProfileInstructions ToContext</div></div><span class="test-duration">3ms</span></div>
+      <div class="test-item"><span class="test-icon pass">&#x2713;</span><div><div class="test-name">Store &mdash; SeededDefault HasOllamaDefaultProvider</div></div><span class="test-duration">1ms</span></div>
+    </div>
+  </div>
+<!-- END_UNIT_MODEL_PROVIDERS -->
 
 
   <details class="info-panel">
