@@ -6,12 +6,15 @@
 
 ## Pre-Session Checklist (10 min before)
 
+> **All prep files live in [`demos-resources/`](./demos-resources/README.md)** — start there; the README maps each file to the checklist item it satisfies.
+
 - [ ] `aspire run` — verify Session 2 app is running end-to-end
-- [ ] Prepare a test skill file for live demo (e.g., `security-auditor.md`)
-- [ ] Navigate to Skills page — toggle one skill to confirm loading works
-- [ ] Pre-run 20+ messages in a conversation to have summarization data ready
-- [ ] Have sample skills ready to display: `skills/built-in/dotnet-expert.md`
+- [ ] Have `demos-resources/skills/security-auditor.md` ready as fallback for the Awesome-Copilot import demo
+- [ ] Navigate to Skills page — toggle `pirate-voice` to confirm loading works (backup copy in `demos-resources/skills/pirate-voice.skill.md` if missing)
+- [ ] Pre-run the 20-message seed from `demos-resources/memory-seed-conversation.md` to have summarization data ready
+- [ ] Have `demos-resources/skills/dotnet-expert.md` open in VS Code to display during the Stage 1 explainer
 - [ ] Open `MemoryEndpoints.cs` in VS Code for Copilot Moment #2
+- [ ] Open `demos-resources/demo-prompts.md` in a side panel — copy/paste during demos
 - [ ] Verify skills API: `curl http://localhost:5000/api/skills`
 
 ---
