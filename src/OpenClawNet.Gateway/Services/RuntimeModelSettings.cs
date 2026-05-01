@@ -9,7 +9,7 @@ namespace OpenClawNet.Gateway.Services;
 public sealed class ModelProviderConfig
 {
     /// <summary>Active provider: "ollama" | "azure-openai" | "foundry-local"</summary>
-    public string Provider { get; set; } = "ollama";
+    public string Provider { get; set; } = "mistral";
 
     /// <summary>Model name or deployment name (provider-specific default when null/empty).</summary>
     public string? Model { get; set; }

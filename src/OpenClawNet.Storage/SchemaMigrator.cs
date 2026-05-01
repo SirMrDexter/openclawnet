@@ -59,6 +59,7 @@ public static class SchemaMigrator
                 Endpoint TEXT,
                 Model TEXT,
                 ApiKey TEXT,
+                VoiceId TEXT,
                 DeploymentName TEXT,
                 AuthMode TEXT,
                 IsSupported INTEGER NOT NULL DEFAULT 0,
@@ -71,6 +72,7 @@ public static class SchemaMigrator
         await AddColumnIfMissingAsync(db, "ModelProviders", "LastTestedAt", "TEXT");
         await AddColumnIfMissingAsync(db, "ModelProviders", "LastTestSucceeded", "INTEGER");
         await AddColumnIfMissingAsync(db, "ModelProviders", "LastTestError", "TEXT");
+        await AddColumnIfMissingAsync(db, "ModelProviders", "VoiceId", "TEXT");
 
         // AgentProfiles table — add columns for existing databases that predate them
         await AddColumnIfMissingAsync(db, "AgentProfiles", "DisplayName", "TEXT");

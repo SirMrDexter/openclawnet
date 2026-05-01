@@ -35,6 +35,7 @@ public static class ModelProviderEndpoints
                 Endpoint = request.Endpoint,
                 Model = request.Model,
                 ApiKey = string.IsNullOrEmpty(request.ApiKey) ? existing?.ApiKey : request.ApiKey,
+                VoiceId = request.VoiceId,
                 DeploymentName = request.DeploymentName,
                 AuthMode = request.AuthMode,
                 IsSupported = request.IsSupported ?? existing?.IsSupported ?? false,
@@ -198,7 +199,7 @@ public static class ModelProviderEndpoints
 
     private static ModelProviderResponse ToResponse(ModelProviderDefinition d) => new(
         d.Name, d.ProviderType, d.DisplayName, d.Endpoint, d.Model,
-        HasApiKey: !string.IsNullOrEmpty(d.ApiKey),
+        HasApiKey: !string.IsNullOrEmpty(d.ApiKey), d.VoiceId,
         d.DeploymentName, d.AuthMode, d.IsSupported, d.CreatedAt, d.UpdatedAt,
         d.LastTestedAt, d.LastTestSucceeded, d.LastTestError
     );
@@ -210,6 +211,7 @@ public sealed record ModelProviderRequest(
     string? Endpoint,
     string? Model,
     string? ApiKey,
+    string? VoiceId,
     string? DeploymentName,
     string? AuthMode,
     bool? IsSupported);
@@ -221,6 +223,7 @@ public sealed record ModelProviderResponse(
     string? Endpoint,
     string? Model,
     bool HasApiKey,
+    string? VoiceId,
     string? DeploymentName,
     string? AuthMode,
     bool IsSupported,

@@ -9,6 +9,7 @@
     <Project Path="src/OpenClawNet.Models.AzureOpenAI/OpenClawNet.Models.AzureOpenAI.csproj" />
     <Project Path="src/OpenClawNet.Models.Foundry/OpenClawNet.Models.Foundry.csproj" />
     <Project Path="src/OpenClawNet.Models.FoundryLocal/OpenClawNet.Models.FoundryLocal.csproj" />
+    <Project Path="src/OpenClawNet.Models.Mistral/OpenClawNet.Models.Mistral.csproj" />
     <Project Path="src/OpenClawNet.Models.Ollama/OpenClawNet.Models.Ollama.csproj" />
     <Project Path="src/OpenClawNet.ServiceDefaults/OpenClawNet.ServiceDefaults.csproj" />
     <Project Path="src/OpenClawNet.Services.Browser/OpenClawNet.Services.Browser.csproj" />

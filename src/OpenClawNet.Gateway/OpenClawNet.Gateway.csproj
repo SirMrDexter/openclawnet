@@ -32,6 +32,7 @@
     <ProjectReference Include="..\OpenClawNet.Models.FoundryLocal\OpenClawNet.Models.FoundryLocal.csproj" />
     <ProjectReference Include="..\OpenClawNet.Models.AzureOpenAI\OpenClawNet.Models.AzureOpenAI.csproj" />
     <ProjectReference Include="..\OpenClawNet.Models.Foundry\OpenClawNet.Models.Foundry.csproj" />
+    <ProjectReference Include="..\OpenClawNet.Models.Mistral\OpenClawNet.Models.Mistral.csproj" />
     <ProjectReference Include="..\OpenClawNet.Tools.Abstractions\OpenClawNet.Tools.Abstractions.csproj" />
     <ProjectReference Include="..\OpenClawNet.Tools.Core\OpenClawNet.Tools.Core.csproj" />
     <ProjectReference Include="..\OpenClawNet.Tools.FileSystem\OpenClawNet.Tools.FileSystem.csproj" />

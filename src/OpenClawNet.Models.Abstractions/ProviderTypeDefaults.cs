@@ -54,4 +54,13 @@ public static class ProviderTypeDefaults
         public const string Endpoint = "http://localhost:1234";
         public const string DisplayName = "LM Studio";
     }
+
+    public static class Mistral
+    {
+        public const string ProviderType = "mistral";
+        public const string Endpoint = "https://api.mistral.ai/v1";
+        public const string Model = "mistral-small-latest";
+        public const string AuthMode = "api-key";
+        public const string DisplayName = "Mistral AI";
+    }
 }

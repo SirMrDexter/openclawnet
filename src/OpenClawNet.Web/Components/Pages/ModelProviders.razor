@@ -291,6 +291,22 @@ else
                                 else if (provider.ProviderType == "github-copilot")
                                 {
                                 }
+                                else if (provider.ProviderType == "mistral")
+                                {
+                                    @if (!string.IsNullOrEmpty(provider.Endpoint))
+                                    {
+                                        <span> · Endpoint: <code>@provider.Endpoint</code></span>
+                                    }
+                                    @if (!string.IsNullOrEmpty(provider.Model))
+                                    {
+                                        <span> · Model: <code>@provider.Model</code></span>
+                                    }
+                                    <span> · API key: @(provider.HasApiKey ? "Set" : "Not set")</span>
+                                    @if (!string.IsNullOrEmpty(provider.VoiceId))
+                                    {
+                                        <span> · Voice ID: <code>@provider.VoiceId</code></span>
+                                    }
+                                }
                                 else
                                 {
                                     @if (!string.IsNullOrEmpty(provider.Endpoint))
@@ -348,6 +364,7 @@ else
                             <option value="foundry">Microsoft Foundry</option>
                             <option value="foundry-local">Foundry Local</option>
                             <option value="lm-studio">LM Studio</option>
+                            <option value="mistral">Mistral</option>
                         </select>
                     </div>
                     <div class="mb-3">
@@ -480,6 +497,57 @@ else
                         </div>
                     }
 
+                    @* ── Mistral fields ─────────────────────────── *@
+                    @if (_form.ProviderType == "mistral")
+                    {
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Endpoint</label>
+                            <input type="url" class="form-control" @bind="_form.Endpoint"
+                                   placeholder="https://api.mistral.ai/v1" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Model</label>
+                            <input type="text" class="form-control" @bind="_form.Model"
+                                   placeholder="mistral-small-latest" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">API Key</label>
+                            <input type="password" class="form-control" @bind="_form.ApiKey"
+                                   placeholder="Enter API key" />
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Voice ID (For Text-to-Speech)</label>
+                            <div class="input-group">
+                                @if (_mistralVoices.Count > 0)
+                                {
+                                    <select class="form-select" @bind="_form.VoiceId">
+                                        <option value="">-- Select a voice --</option>
+                                        @foreach (var voice in _mistralVoices)
+                                        {
+                                            <option value="@voice.Id">@voice.Name (@voice.Id)</option>
+                                        }
+                                    </select>
+                                }
+                                else
+                                {
+                                    <input type="text" class="form-control" @bind="_form.VoiceId"
+                                           placeholder="e.g. pixtral-voice-1" />
+                                }
+                                <button class="btn btn-outline-secondary" type="button" @onclick="LoadMistralVoices" disabled="@_loadingVoices">
+                                    @if (_loadingVoices)
+                                    {
+                                        <span class="spinner-border spinner-border-sm me-1" role="status"></span>
+                                    }
+                                    Load Voices
+                                </button>
+                            </div>
+                            @if (!string.IsNullOrEmpty(_mistralVoicesError))
+                            {
+                                <div class="form-text text-danger">@_mistralVoicesError</div>
+                            }
+                        </div>
+                    }
+
                     <div class="d-flex gap-2">
                         <button class="btn btn-primary" @onclick="SaveProvider" disabled="@_saving">
                             @if (_saving)
@@ -537,6 +605,10 @@ else
     private bool _isEditing;
     private ProviderFormModel _form = new();
 
+    private bool _loadingVoices;
+    private string? _mistralVoicesError;
+    private List<MistralVoice> _mistralVoices = new();
+
     private bool AllSelected => _providers.Count > 0 && _selected.Count == _providers.Count;
 
     // ── Lifecycle ────────────────────────────────────────────
@@ -571,6 +643,8 @@ else
         _showForm = true;
         _saveSuccess = null;
         _errorMessage = string.Empty;
+        _mistralVoices.Clear();
+        _mistralVoicesError = null;
     }
 
     private void EditProvider(ProviderDto provider)
@@ -584,12 +658,15 @@ else
             Model          = provider.Model,
             DeploymentName = provider.DeploymentName,
             AuthMode       = provider.AuthMode ?? "api-key",
+            VoiceId        = provider.VoiceId,
             ApiKey         = null
         };
         _isEditing = true;
         _showForm = true;
         _saveSuccess = null;
         _errorMessage = string.Empty;
+        _mistralVoices.Clear();
+        _mistralVoicesError = null;
     }
 
     private void CancelForm()
@@ -597,6 +674,8 @@ else
         _showForm = false;
         _saveSuccess = null;
         _errorMessage = string.Empty;
+        _mistralVoices.Clear();
+        _mistralVoicesError = null;
     }
 
     private async Task SaveProvider()
@@ -622,6 +701,7 @@ else
                 Endpoint       = NullIfEmpty(_form.Endpoint),
                 Model          = NullIfEmpty(_form.Model),
                 ApiKey         = NullIfEmpty(_form.ApiKey),
+                VoiceId        = NullIfEmpty(_form.VoiceId),
                 DeploymentName = NullIfEmpty(_form.DeploymentName),
                 AuthMode       = NullIfEmpty(_form.AuthMode)
             };
@@ -845,6 +925,68 @@ else
         }
     }
 
+    // ── Mistral Voices API ──────────────────────────────────
+    private async Task LoadMistralVoices()
+    {
+        _mistralVoicesError = null;
+        if (string.IsNullOrWhiteSpace(_form.ApiKey) && !_isEditing)
+        {
+            _mistralVoicesError = "Please enter an API Key first.";
+            return;
+        }
+
+        _loadingVoices = true;
+        StateHasChanged();
+
+        try
+        {
+            // Use the provided endpoint or default
+            var endpoint = string.IsNullOrWhiteSpace(_form.Endpoint) ? "https://api.mistral.ai/v1" : _form.Endpoint.TrimEnd('/');
+            using var http = new HttpClient { BaseAddress = new Uri(endpoint + "/") };
+            
+            // Wait, if it's editing and user didn't enter API key, we should rely on the backend.
+            // But from frontend we don't have the real API key if it's editing and empty!
+            // Actually, we can just call our own backend test endpoint, but there's no endpoint for voices yet.
+            // Let's assume user must re-enter API key to load voices if they want to load via frontend,
+            // or we add a gateway endpoint for this. For now, we will use the one in the textbox.
+            if (string.IsNullOrWhiteSpace(_form.ApiKey))
+            {
+                _mistralVoicesError = "Please re-enter the API Key to load voices.";
+                _loadingVoices = false;
+                StateHasChanged();
+                return;
+            }
+
+            http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", _form.ApiKey);
+            var response = await http.GetAsync("audio/voices");
+            
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<MistralVoiceListResponse>();
+                _mistralVoices = result?.Items ?? new();
+                if (_mistralVoices.Count == 0)
+                {
+                    _mistralVoicesError = "No voices found.";
+                }
+            }
+            else
+            {
+                var body = await response.Content.ReadAsStringAsync();
+                _mistralVoicesError = $"Failed: {response.StatusCode} - {body}";
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Failed to load mistral voices");
+            _mistralVoicesError = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            _loadingVoices = false;
+            StateHasChanged();
+        }
+    }
+
     // ── Helpers ─────────────────────────────────────────────
     private static string? NullIfEmpty(string? s) =>
         string.IsNullOrWhiteSpace(s) ? null : s.Trim();
@@ -857,6 +999,7 @@ else
         "foundry"        => "Microsoft Foundry",
         "foundry-local"  => "Foundry Local",
         "lm-studio"      => "LM Studio",
+        "mistral"        => "Mistral",
         _                => type ?? "Unknown"
     };
 
@@ -881,6 +1024,7 @@ else
         public string? Endpoint { get; set; }
         public string? Model { get; set; }
         public string? ApiKey { get; set; }
+        public string? VoiceId { get; set; }
         public string? DeploymentName { get; set; }
         public string? AuthMode { get; set; } = "api-key";
     }
@@ -888,9 +1032,20 @@ else
     // ── DTOs ────────────────────────────────────────────────
     private sealed record ProviderDto(
         string Name, string ProviderType, string? DisplayName, string? Endpoint,
-        string? Model, bool HasApiKey, string? DeploymentName, string? AuthMode,
+        string? Model, bool HasApiKey, string? VoiceId, string? DeploymentName, string? AuthMode,
         bool IsSupported, DateTime CreatedAt, DateTime UpdatedAt,
         DateTime? LastTestedAt, bool? LastTestSucceeded, string? LastTestError);
+
+    private sealed class MistralVoiceListResponse
+    {
+        public List<MistralVoice>? Items { get; set; }
+    }
+
+    private sealed class MistralVoice
+    {
+        public string Id { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+    }
 
     private sealed record TestResult(bool Success, string? Message, DateTime? LastTestedAt, bool? LastTestSucceeded, string? LastTestError);
     private sealed record TestApiResponse { 

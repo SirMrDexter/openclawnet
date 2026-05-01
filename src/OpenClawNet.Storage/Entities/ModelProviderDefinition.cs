@@ -24,6 +24,9 @@ public sealed class ModelProviderDefinition
     /// <summary>API key (Azure OpenAI, Foundry).</summary>
     public string? ApiKey { get; set; }
 
+    /// <summary>Mistral Voice ID for Text to Speech.</summary>
+    public string? VoiceId { get; set; }
+
     /// <summary>Azure OpenAI deployment name.</summary>
     public string? DeploymentName { get; set; }
 

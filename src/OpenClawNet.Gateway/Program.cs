@@ -11,6 +11,7 @@ using OpenClawNet.Models.AzureOpenAI;
 using OpenClawNet.Models.Foundry;
 using OpenClawNet.Models.FoundryLocal;
 using OpenClawNet.Models.GitHubCopilot;
+using OpenClawNet.Models.Mistral;
 using OpenClawNet.Models.Ollama;
 using OpenClawNet.Skills;
 using OpenClawNet.Storage;
@@ -126,6 +127,14 @@ builder.Services.Configure<OpenClawNet.Models.GitHubCopilot.GitHubCopilotOptions
     o.CliPath = copilotSection["CliPath"];
 });
 
+builder.Services.Configure<MistralOptions>(o =>
+{
+    var modelSection = builder.Configuration.GetSection("Model");
+    o.Endpoint = modelSection["Endpoint"] ?? "https://api.mistral.ai/v1";
+    o.ApiKey = modelSection["ApiKey"];
+    o.Model = "mistral-small-latest";
+});
+
 // MAF IAgentProvider registrations (Phase 1 — alongside existing IModelClient)
 builder.Services.AddSingleton<OllamaAgentProvider>();
 builder.Services.AddSingleton<IAgentProvider>(sp => sp.GetRequiredService<OllamaAgentProvider>());
@@ -137,6 +146,8 @@ builder.Services.AddSingleton<FoundryLocalAgentProvider>();
 builder.Services.AddSingleton<IAgentProvider>(sp => sp.GetRequiredService<FoundryLocalAgentProvider>());
 builder.Services.AddSingleton<GitHubCopilotAgentProvider>();
 builder.Services.AddSingleton<IAgentProvider>(sp => sp.GetRequiredService<GitHubCopilotAgentProvider>());
+builder.Services.AddSingleton<MistralAgentProvider>();
+builder.Services.AddSingleton<IAgentProvider>(sp => sp.GetRequiredService<MistralAgentProvider>());
 
 // RuntimeAgentProvider routes to the active provider based on settings
 builder.Services.AddSingleton<RuntimeAgentProvider>();
@@ -189,6 +200,10 @@ builder.Services.AddSingleton<ITool>(sp => sp.GetRequiredService<EmbeddingsTool>
 // Text-to-speech — local Qwen3-TTS 0.6B WAV synthesis via ElBruno.QwenTTS.
 builder.Services.AddSingleton<TextToSpeechTool>();
 builder.Services.AddSingleton<ITool>(sp => sp.GetRequiredService<TextToSpeechTool>());
+
+// Mistral Text-to-speech
+builder.Services.AddHttpClient<MistralTextToSpeechTool>();
+builder.Services.AddSingleton<ITool>(sp => sp.GetRequiredService<MistralTextToSpeechTool>());
 
 // GitHub — read-only repo browsing via Octokit. Optional GITHUB_TOKEN secret enables higher rate limits.
 builder.Services.AddSingleton<GitHubTool>();

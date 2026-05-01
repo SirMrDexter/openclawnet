@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using OpenClawNet.Models.Abstractions;
 using OpenClawNet.Models.AzureOpenAI;
 using OpenClawNet.Models.FoundryLocal;
+using OpenClawNet.Models.Mistral;
 using OpenClawNet.Models.Ollama;
 
 namespace OpenClawNet.Gateway.Services;
@@ -246,6 +247,7 @@ internal sealed class RuntimeModelClient : IModelClient, IDisposable
                 "GitHub Copilot must be used via the Agent Provider path. Configure a different default provider."),
             "foundry"   => CreateOllama(cfg, isPrimary), // Foundry uses OpenAI-compatible API
             "lm-studio" => CreateOllama(cfg, isPrimary), // LM Studio uses OpenAI-compatible API
+            "mistral"   => CreateMistral(cfg, isPrimary),
             "ollama"    => CreateOllama(cfg, isPrimary),
             _           => CreateOllama(cfg, isPrimary)
         };
@@ -273,6 +275,27 @@ internal sealed class RuntimeModelClient : IModelClient, IDisposable
             http,
             opts,
             _loggerFactory.CreateLogger<OllamaModelClient>());
+    }
+
+    private IModelClient CreateMistral(ModelProviderConfig cfg, bool isPrimary)
+    {
+        var endpoint = cfg.Endpoint ?? "https://api.mistral.ai/v1";
+        var http = new HttpClient { BaseAddress = new Uri(endpoint) };
+
+        if (isPrimary)
+            _ownedHttp = http;
+
+        var opts = Options.Create(new MistralOptions
+        {
+            Endpoint = endpoint,
+            ApiKey = cfg.ApiKey,
+            Model = string.IsNullOrWhiteSpace(cfg.Model) ? "mistral-small-latest" : cfg.Model,
+        });
+
+        return new MistralModelClient(
+            http,
+            opts,
+            _loggerFactory.CreateLogger<MistralModelClient>());
     }
 
     private IModelClient CreateAzureOpenAI(ModelProviderConfig cfg)

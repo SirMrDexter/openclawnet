@@ -49,6 +49,7 @@ public sealed class ModelProviderDefinitionStore : IModelProviderDefinitionStore
             existing.Endpoint = definition.Endpoint;
             existing.Model = definition.Model;
             existing.ApiKey = definition.ApiKey;
+            existing.VoiceId = definition.VoiceId;
             existing.DeploymentName = definition.DeploymentName;
             existing.AuthMode = definition.AuthMode;
             existing.IsSupported = definition.IsSupported;
@@ -133,6 +134,16 @@ public sealed class ModelProviderDefinitionStore : IModelProviderDefinitionStore
                 ProviderType = ProviderTypeDefaults.LMStudio.ProviderType,
                 DisplayName = ProviderTypeDefaults.LMStudio.DisplayName,
                 Endpoint = ProviderTypeDefaults.LMStudio.Endpoint,
+                IsSupported = false
+            },
+            new ModelProviderDefinition
+            {
+                Name = "mistral-default",
+                ProviderType = ProviderTypeDefaults.Mistral.ProviderType,
+                DisplayName = ProviderTypeDefaults.Mistral.DisplayName,
+                Endpoint = ProviderTypeDefaults.Mistral.Endpoint,
+                Model = ProviderTypeDefaults.Mistral.Model,
+                AuthMode = ProviderTypeDefaults.Mistral.AuthMode,
                 IsSupported = false
             }
         };
